@@ -24,10 +24,11 @@ gageList = [
 
 parameter = 'Flow'
 units = 'cfs'
+
 n_columns = 1
 n = len(gageList)
         
-# Setup plotly trace
+# Setup plotly figure
 fig = make_subplots(  
     rows=n, 
     cols=n_columns, 
@@ -37,6 +38,8 @@ fig = make_subplots(
 )
 
 for i, gage in enumerate(gageList):
+    # concatenate dataframes for each sim to a single dataframe that will be output to a csv file
+    df_gage = pd.DataFrame()
     for dss_file in dss_files:
         
         sim = dss_file.split(".")[0].split("_")[-1]
@@ -78,7 +81,9 @@ for i, gage in enumerate(gageList):
             df.Values = np.where(df.Missing == True, np.NaN, df.Values)
             df['sim'] = sim
             
-            
+            # concatenate dataframes for each sim to a single dataframe that will be output to a csv file
+            df_gage = pd.concat([df_gage,df])
+    
 
             fig.append_trace(
                 go.Scatter(
@@ -95,6 +100,9 @@ for i, gage in enumerate(gageList):
         
         fid.close()
     
+    # concatenate dataframes for each sim to a single dataframe that will be output to a csv file
+    df_gage.to_csv(f'df_{gage}.csv')
+
     # fig.add_annotation(
     #             text=gage,
     #             xref="x domain", yref="y domain",
