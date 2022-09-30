@@ -14,9 +14,16 @@ dss_files = glob.glob(dss_dir+"//*.dss")
 dss_files = sorted(dss_files)
 
 event = 'Hurricane Matthew (2004)'
-gageList = ['Amite', 'Maurepas', 'Tangipahoa', 'Tickfaw']
-parameter = 'PRECIP-INC'
-units = 'mm'
+# gageList = ['Amite', 'Maurepas', 'Tangipahoa', 'Tickfaw']
+
+gageList = [
+    'J_UpperAmite','J_Sandy_AmiteDS','J_at_ComiteDr','J_Amite_Comite',
+    'J_UpperTickfallOut','J_TwelveMiCrkOut','J_TickfallHoldenOutlet','J_UpperNatalOutlet',
+    'J_LittleTangOutlet','J_ChapOutlet'
+    ]
+
+parameter = 'Flow'
+units = 'cfs'
 n_columns = 1
 n = len(gageList)
         
