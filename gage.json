@@ -1,0 +1,65 @@
+{
+	"gages": {
+
+		"J_UpperAmite": {
+			"name": "Amite River at Darlington",
+			"g_name": "G01",
+			"usgs": "7378500",
+			"basin": "Amite River"
+		},
+		"J_Sandy_AmiteDS": {
+			"name": "Amite River at Magnolia",
+			"g_name": "G02",
+			"usgs": "7377300",
+			"basin": "Amite River"
+		},
+		"J_at_ComiteDr": {
+			"name": "Comite River at Comite Drive",
+			"g_name": "G03",
+			"usgs": "7377760",
+			"basin": "Comite/Amite River"
+		},
+		"J_Amite_Comite": {
+			"name": "Amite River at Denham Springs",
+			"g_name": "G04",
+			"usgs": "7378500",
+			"basin": "Amite River"
+		},
+		"J_UpperTickfallOut": {
+			"name": "Tickfaw at Liverpool",
+			"g_name": "G05",
+			"usgs": "7375800",
+			"basin": "Tickfaw River"
+		},
+		"J_TwelveMiCrkOut": {
+			"name": "Tickfaw at Montpelier",
+			"g_name": "G06",
+			"usgs": "7375960",
+			"basin": "Tickfaw River"
+		},
+		"J_TickfallHoldenOutlet": {
+			"name": "Tickfaw at Holden",
+			"g_name": "G07",
+			"usgs": "7376000",
+			"basin": "Tickfaw River"
+		},
+		"J_UpperNatalOutlet": {
+			"name": "Natalbany at Baptist",
+			"g_name": "G08",
+			"usgs": "7376500",
+			"basin": "Natalbany River"
+		},
+		"J_LittleTangOutlet": {
+			"name": "Tangipahoa at Osyka",
+			"g_name": "G09",
+			"usgs": "7375280",
+			"basin": "Tangipahoa River"
+		},
+		"J_ChapOutlet": {
+			"name": "Tangipahoa at Robert",
+			"g_name": "G10",
+			"usgs": "7375500",
+			"basin": "Tangipahoa River"
+		}
+	}
+}
