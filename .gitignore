@@ -1,2 +1,6 @@
 *.html
 *.csv
+*.met
+*.grid
+*.hms
+*.run

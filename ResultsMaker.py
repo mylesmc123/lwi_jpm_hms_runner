@@ -22,20 +22,15 @@ import json
 with open("gage.json", "r") as read_file:
     gages = json.load(read_file)
 
-print (gages['gages'].keys())
-print (gages['gages']['J_TickfallHoldenOutlet'])
-# print(list(gages['gages'].keys())[list(gages['gages'][''].values()).index('J_TickfallHoldenOutlet')])
 parameter = 'Flow'
 units = 'cfs'
 
 eventList = ['2004_Matthew', '2005_Rita', '2012_Isaac']
-
-# basinList = ACT = Actual AORC calibrated basin, 001 = 25% bin, 003 = 75% bin
-basinList = ['ACT', '001', '002', '003']
+basinList = ['25P', '50P', '75P']
 
 #for testing
-basinList = ['ACT']
-eventList = ['2004_Matthew']       
+# basinList = ['ACT']
+# eventList = ['2004_Matthew']       
 
 for event in eventList:
     for basin in basinList:
@@ -54,7 +49,7 @@ for event in eventList:
         # )
 
         # For each dss file, get precip-inc at a location
-        dss_dir = fr"Z:\LWI\EJPM-OS-Param-Rainfall-Tests\hms_out_dss\{event}"
+        dss_dir = fr"Z:\LWI\JPM_3bins_dss_output\{event}\{basin}"
         dss_files = glob.glob(dss_dir+"//*.dss")
         dss_files = sorted(dss_files)
 
@@ -125,7 +120,7 @@ for event in eventList:
             # concatenate dataframes for each sim to a single dataframe that will be output to a csv file
             # CSV Output Format: Ex Q_Matthew_PARA_001_500_G01 --> Parameter_PARA_AntecedentBasin_Sim#_G#
             g = gages['gages'][gage]['g_name']
-            df_gage.to_csv(f'Q_{event}_PARA_{basin}_{g}.csv')
+            df_gage.to_csv(f'ResultsMaker_output\Q_{event}_PARA_{basin}_{g}.csv')
 
 
 

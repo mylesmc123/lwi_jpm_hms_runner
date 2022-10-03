@@ -1,23 +1,29 @@
 import glob
+import os
 
-event = "Hurricane_Rita"
-apart = "Rita"
+# event = "Hurricane_Isaac"
 
-dss_dir = fr'Z:\Amite\HEC_HMS_RE-Calibration\HMS_Model_AORC_{event}\data\JPM_Precip\{event}'
-grid_fn = 'Amite_Final_HMS_Model.grid'
-run_fn = 'Amite_Final_HMS_Model.run'
-hms_fn = 'Amite_Final_HMS_Model.hms'
+basinList = ["25P", "50P","75P"]
+precip_eventList = ["Hurricane_Isaac", "Hurricane_Rita", "TS_Matthew"]
 
-# Get each sim
-dss_files = glob.glob(dss_dir+"//*.dss")
-dss_files = sorted(dss_files)
-for dss_file in dss_files:
-    sim = dss_file.split(".")[0].split("_")[-1]
-    
-    # Grid file append each sim.
-    with open(grid_fn, 'a') as gridFile:
-        gridFile.write(f"""
-Grid: {event}_JPM_{sim}
+for event in precip_eventList:
+    for basin in basinList:
+        apart = event.split("_")[-1]
+        precip_dss_dir = fr'Z:\Amite\precipitation\JPM_Parametric\{event}'
+        grid_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.grid')
+        run_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.run')
+        hms_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.hms')
+
+        # Get each sim
+        dss_files = glob.glob(precip_dss_dir+"//*.dss")
+        dss_files = sorted(dss_files)
+        for dss_file in dss_files:
+            sim = dss_file.split(".")[0].split("_")[-1]
+            
+            # Grid file append each sim.
+            with open(grid_fn, 'a') as gridFile:
+                gridFile.write(f"""
+Grid: {event}_{basin}_JPM_{sim}
     Grid Type: Precipitation
     Last Modified Date: 27 September 2022
     Last Modified Time: 22:34:58
@@ -35,10 +41,10 @@ Grid: {event}_JPM_{sim}
 End:
     """)
 
-    # create new met file for each sim. JPM_Sim###.met
-    met_fn = f'{event}_JPM_{sim}.met'
-    with open(met_fn, "w") as metFile:
-        metFile.write(f"""Meteorology: {event}_JPM_{sim}
+            # create new met file for each sim. JPM_Sim###.met
+            met_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/{event}_{basin}_JPM_{sim}.met')
+            with open(met_fn, "w") as metFile:
+                metFile.write(f"""Meteorology: {event}_{basin}_JPM_{sim}
     Last Modified Date: 27 September 2022
     Last Modified Time: 20:54:09
     Version: 4.10
@@ -58,17 +64,17 @@ End:
 Precip Method Parameters: Gridded Precipitation
     Last Modified Date: 27 September 2022
     Last Modified Time: 20:54:19
-    Precip Grid Name: {event}_JPM_{sim}
+    Precip Grid Name: {event}_{basin}_JPM_{sim}
 End:
         """)
 
-    # Run file append each sim
-    with open(run_fn, 'a') as runFile:
-        runFile.write(f"""
-Run: {event}_JPM_{sim}
+            # Run file append each sim
+            with open(run_fn, 'a') as runFile:
+                runFile.write(f"""
+Run: {event}_{basin}_JPM_{sim}
     Default Description: Yes
-    Log File: {event}_JPM_{sim}.log
-    DSS File: {event}_JPM_{sim}.dss
+    Log File: {event}_{basin}_JPM_{sim}.log
+    DSS File: {event}_{basin}_JPM_{sim}.dss
     Is Save Spatial Results: Yes
     Spatial Results Write Interval: 60
     Last Modified Date: 27 September 2022
@@ -76,7 +82,7 @@ Run: {event}_JPM_{sim}
     Last Execution Date: 27 September 2022
     Last Execution Time: 22:35:01
     Basin: Consensus- Grid
-    Precip: {event}_JPM_{sim}
+    Precip: {event}_{basin}_JPM_{sim}
     Control: {event}
     Save State Type: None
     Time-Series Output: Save All
@@ -85,11 +91,11 @@ Run: {event}_JPM_{sim}
 End:
         """)
 
-# HMS file append each sim
-    with open(hms_fn, 'a') as hmsFile:
-        hmsFile.write(f"""
-Precipitation: {event}_JPM_{sim}
-    Filename: {event}_JPM_{sim}.met
+        # HMS file append each sim
+            with open(hms_fn, 'a') as hmsFile:
+                hmsFile.write(f"""
+Precipitation: {event}_{basin}_JPM_{sim}
+    Filename: {event}_{basin}_JPM_{sim}.met
     Description: 
     Last Modified Date: 27 September 2022
     Last Modified Time: 22:34:58
