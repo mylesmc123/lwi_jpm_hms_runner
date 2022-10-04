@@ -120,7 +120,7 @@ for event in eventList:
             # concatenate dataframes for each sim to a single dataframe that will be output to a csv file
             # CSV Output Format: Ex Q_Matthew_PARA_001_500_G01 --> Parameter_PARA_AntecedentBasin_Sim#_G#
             g = gages['gages'][gage]['g_name']
-            df_gage.to_csv(f'ResultsMaker_output\Q_{event}_PARA_{basin}_{g}.csv')
+            df_gage.to_csv(f'ResultsMaker_output/Q_{event}_PARA_{basin}_{g}.csv')
 
 
 
