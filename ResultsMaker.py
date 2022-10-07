@@ -26,10 +26,11 @@ parameter = 'Flow'
 units = 'cfs'
 
 eventList = ['2004_Matthew', '2005_Rita', '2012_Isaac']
-basinList = ['25P', '50P', '75P']
+basinList = ['50P', '75P']
+# basinList = ['25P', '50P', '75P']
+# basinList = ['ACT']
 
 #for testing
-# basinList = ['ACT']
 # eventList = ['2004_Matthew']       
 
 for event in eventList:
@@ -49,7 +50,8 @@ for event in eventList:
         # )
 
         # For each dss file, get precip-inc at a location
-        dss_dir = fr"Z:\LWI\JPM_3bins_dss_output\{event}\{basin}"
+        dss_dir = fr"Z:\Amite\HMS_Additional_Simulations\output_dss\{event}\{basin}"
+        # dss_dir = fr"Z:\Amite\HMS_1500_Simulations\output_dss\{event}"
         dss_files = glob.glob(dss_dir+"//*.dss")
         dss_files = sorted(dss_files)
 
@@ -113,8 +115,6 @@ for event in eventList:
                     #     col=1
                     # )
 
-                    
-                
                 fid.close()
             
             # concatenate dataframes for each sim to a single dataframe that will be output to a csv file

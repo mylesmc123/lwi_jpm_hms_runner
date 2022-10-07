@@ -1,15 +1,18 @@
 import glob
 import os
+from tqdm import tqdm
 
 # event = "Hurricane_Isaac"
 
 basinList = ["25P", "50P","75P"]
 precip_eventList = ["Hurricane_Isaac", "Hurricane_Rita", "TS_Matthew"]
 
-for event in precip_eventList:
-    for basin in basinList:
+for event in tqdm(precip_eventList):
+    
+    for basin in tqdm(basinList):
+    
         apart = event.split("_")[-1]
-        precip_dss_dir = fr'Z:\Amite\precipitation\JPM_Parametric\{event}'
+        precip_dss_dir = fr"Z:\Amite\precipitation\JPM_Additional_dss\{event}"
         grid_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.grid')
         run_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.run')
         hms_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.hms')
@@ -17,6 +20,7 @@ for event in precip_eventList:
         # Get each sim
         dss_files = glob.glob(precip_dss_dir+"//*.dss")
         dss_files = sorted(dss_files)
+        
         for dss_file in dss_files:
             sim = dss_file.split(".")[0].split("_")[-1]
             
@@ -35,7 +39,7 @@ Grid: {event}_{basin}_JPM_{sim}
         Last Variant Modified Time: 22:34:58
         Default Variant: Yes
         DSS File Name: {dss_file}
-        DSS Pathname: /{apart}//PRECIPITATION///{sim}/
+        DSS Pathname: /{apart}//PRECIPITATION///ADDITIONAL/
     End Variant: Variant-1
     Use Lookup Table: No
 End:
