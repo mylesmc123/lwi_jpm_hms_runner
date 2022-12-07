@@ -1,0 +1,7 @@
+5 HMS Basins [5, 25, 50, 75, 95]
+645 x 100 events per Basin = 64,500 HMS runs per basin
+5p [1-100], 25p [101-200], 50p [201 - 300], 75P [301 - 400], 95P [401 - 500]
+
+Ex: 5%ile basin runs will be the 1st 100 out of the 500 traces for each of the 645 events. 
+
+645 X 100 X 5 = 322,500 total runs

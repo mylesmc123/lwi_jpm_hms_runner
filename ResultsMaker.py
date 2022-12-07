@@ -22,32 +22,35 @@ import json
 with open("gage.json", "r") as read_file:
     gages = json.load(read_file)
 
+
 parameter = 'Flow'
 units = 'cfs'
 
 eventList = ['2004_Matthew', '2005_Rita', '2012_Isaac']
-basinList = ['50P', '75P']
+basinList = ['25P', '50P', '75P']
 # basinList = ['25P', '50P', '75P']
 # basinList = ['ACT']
 
 #for testing
 # eventList = ['2004_Matthew']       
 
+# print(len(list(gages['gages'].keys())))
+
 for event in eventList:
     for basin in basinList:
         n_columns = 1
-        n = len(gages['gages'].keys())
+        n = len(list(gages['gages'].keys()))
         i=0
         
         # Setup plotly figure
-        # fig = make_subplots(  
-        #     rows=n, 
-        #     cols=n_columns, 
-        #     # vertical_spacing=3,
-        #     # padding = 
-        #     # vertical_spacing=(1 / (n - 1)),
-        #     subplot_titles=gageList
-        # )
+        fig = make_subplots(  
+            rows=n, 
+            cols=n_columns, 
+            # vertical_spacing=3,
+            # padding = 
+            # vertical_spacing=(1 / (n - 1)),
+            subplot_titles=list(gages['gages'].keys())
+        )
 
         # For each dss file, get precip-inc at a location
         dss_dir = fr"Z:\Amite\HMS_Additional_Simulations\output_dss\{event}\{basin}"
@@ -55,11 +58,11 @@ for event in eventList:
         dss_files = glob.glob(dss_dir+"//*.dss")
         dss_files = sorted(dss_files)
 
-        for i, gage in enumerate(gages['gages'].keys()):
+        for i, gage in enumerate(list(gages['gages'].keys())):
         
             # concatenate dataframes for each sim to a single dataframe that will be output to a csv file
             df_gage = pd.DataFrame()
-            for dss_file in dss_files:
+            for dss_file in dss_files[0:2]:
                 
                 sim = dss_file.split(".")[0].split("_")[-1]
                 fid = HecDss.Open(fr"{dss_file}")
@@ -104,16 +107,16 @@ for event in eventList:
                     df_gage = pd.concat([df_gage,df])
             
 
-                    # fig.append_trace(
-                    #     go.Scatter(
-                    #         x=df.Times, 
-                    #         y=df.Values,
-                    #         name = sim,
-                    #     ), 
-                    #     row=i+1,
-                    #     # row = 1, 
-                    #     col=1
-                    # )
+                    fig.append_trace(
+                        go.Scatter(
+                            x=df.Times, 
+                            y=df.Values,
+                            name = sim,                          
+                        ), 
+                        row=i+1,
+                        # row = 1, 
+                        col=1
+                    )
 
                 fid.close()
             
@@ -124,18 +127,19 @@ for event in eventList:
 
 
 
-        # fig.update_layout(
-        #             height=n*10000, 
-        #             width=2300,
-        #             showlegend=False, 
-        #             title_text=f"JPM Parametric Rainfall Simulations. {event} - {parameter} ({units})",
-        #             template= "plotly_dark",
-        #             hoverlabel=dict(
-        #                 font=dict(
-        #                     family='sans-serif', size=22
-        #                 ),
-        #                 namelength= -1
-        #             )
-        #         )
-        # fig.update_yaxes(automargin=True)
-        # fig.write_html(f"{event} {basin} Results.html")
+        fig.update_layout(
+                    height=n*10000, 
+                    width=2300,
+                    showlegend=False, 
+                    title_text=f"JPM Parametric Rainfall Simulations. {event} - {parameter} ({units})",
+                    template= "plotly_dark",
+                    hoverlabel=dict(
+                        font=dict(
+                            family='sans-serif', size=22
+                        ),
+                        namelength= -1
+                    )
+                )
+
+        fig.update_yaxes(automargin=True)
+        fig.write_html(f"{event} {basin} Results.html")
