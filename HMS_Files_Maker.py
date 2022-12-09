@@ -8,17 +8,15 @@ from tqdm import tqdm
 
 # The HMS basins and the sim numbers to run for each basin per event.
 basinSims = {
-    '5P':[1,100],
+    '5P' :[1,100],
     '25P':[101,200],
     '50P':[201,300],
     '75P':[301,400],
-    '95P':[401,500],
+    '95P':[401,500]
 }
 
-print(basinSims['25P'][1])
-
-precip_eventList = ["Hurricane_Isaac", "Hurricane_Rita", "TS_Matthew"]
-# precip_eventList = [item for item in range(1, 645+1)]
+# precip_eventList = ["Hurricane_Isaac", "Hurricane_Rita", "TS_Matthew"]
+precip_eventList = [item for item in range(1, 645+1)]
 
 for event in tqdm(precip_eventList):
     

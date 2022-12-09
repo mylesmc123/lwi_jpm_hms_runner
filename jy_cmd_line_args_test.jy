@@ -1,0 +1,13 @@
+#!/usr/bin/env jython
+
+import optparse
+
+print 'hello'
+
+o = optparse.OptionParser()
+o.add_option("-t", "--threads", action="store", type=int, dest="threads_cnt", help='threads count')
+o.add_option("-x", type=int, action="store", dest="x")
+args, _ = o.parse_args()
+
+print _
+print args

@@ -1,0 +1,57 @@
+from mil.army.usace.hec.vortex.io import BatchImporter
+from mil.army.usace.hec.vortex.geo import WktFactory
+import glob
+import os
+
+# cd C:\Apps\HEC-HMS-4.10-beta.9
+# HEC-HMS.cmd -script "C:\py\lwi_jpm_hms_runner\vortex_import_JPM_Rain.jy"
+
+variables = ['PRCP']
+
+clip_shp = r"Z:\LWI\EJPM-OS-Param-Rainfall-Tests\AmiteBasinShape.shp"
+
+geo_options = {
+    'pathToShp': clip_shp,
+    'targetCellSize': '2000',
+    'targetWkt': WktFactory.shg(),
+    'resamplingMethod': 'Bilinear'
+}
+
+# events = ['2004_MATTHEW', '2005_RITA', '2012_ISAAC']
+in_dir = r"V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\temp"
+f = glob.glob(in_dir+"//*//*.nc")
+
+out_dir = r"V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\dss"
+
+for afile in f:
+    head, tail = os.path.split(afile)
+    in_files = [afile]
+    stormId = tail.split("_")[3]
+    ensembleId = tail.split("_")[4].split(".")[0]
+    destination = out_dir + '//' + tail.split(".")[0]+".dss"  
+    
+    write_options = {
+    'partA': stormId,
+    'partF': ensembleId
+    }
+
+    myImport = BatchImporter.builder() \
+        .inFiles(in_files) \
+        .variables(variables) \
+        .geoOptions(geo_options) \
+        .destination(destination) \
+        .writeOptions(write_options) \
+        .build()
+    
+    # myImport = BatchImporter.builder() \
+    #     .inFiles(in_files) \
+    #     .variables(variables) \
+    #     .destination(destination) \
+    #     .writeOptions(write_options) \
+    #     .build()
+
+    myImport.process()
+# print afile
+# print stormId
+# print ensembleId
+# print destination
