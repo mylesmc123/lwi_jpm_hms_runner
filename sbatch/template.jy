@@ -1,0 +1,10 @@
+#!/usr/bin/env jython
+
+import sys, os
+
+Basin=AAA
+ADCIRC=BBB
+Event=CCC
+
+
+
