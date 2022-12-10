@@ -1,0 +1,37 @@
+#!/bin/bash
+#SBATCH -p standard
+#SBATCH -A cpra_rtf_2022
+#SBATCH -t 06:00:00
+#SBATCH -N 1
+#SBATCH --ntasks=64
+#SBATCH --mem=16GB
+#SBATCH -J ras61_64cores_rtf
+
+set -x
+
+# module load hec-ras/6.1.0
+# omb_lwi_6
+# cpra_rtf_2022
+source /twi/applications/software/tools/anaconda/2022.05/etc/profile.d
+conda activate /home/WATER/mmcmanus/.conda/envs/dss
+
+export OMP_NUM_THREADS=$SLURM_NTASKS
+export KMP_WARNINGS=0
+
+date > run.begin
+
+# cp Amite_20200114.g03.hdf Amite_20200114.g03.tmp.hdf
+
+# hecras_61_batch RasGeomPreprocess Amite_20200114.x03
+
+# cp Amite_20200114.c03.tmp Amite_20200114.c03
+
+python "/twi/work/projects/p00542_cpra_2020_lwi_t01/phase2_prod_2022/300k/lwi_jpm_hms_runner/rainfall_nc_preprocessor/rainfall_preprocessor_from_clean_list.py"
+# which python
+
+date > run.end
+
+#mv Run_000014_0031.p01.tmp.hdf Run_000014_0031.p01.hdf
+
+
+
