@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p standard
 #SBATCH -A cpra_rtf_2022
-#SBATCH -t 06:00:00
+#SBATCH -t 96:00:00
 #SBATCH -N 1
 #SBATCH --ntasks=64
 #SBATCH --mem=16GB
