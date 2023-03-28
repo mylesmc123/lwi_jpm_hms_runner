@@ -23,7 +23,8 @@ for event in tqdm(precip_eventList):
     for basin in tqdm(basinSims.keys()):
     
         apart = event.split("_")[-1]
-        precip_dss_dir = fr"Z:\Amite\Data\Precipitation\JPM_Additional_dss\{event}"
+        # precip_dss_dir = fr"Z:\Amite\Data\Precipitation\JPM_Additional_dss\{event}"
+        precip_dss_dir = fr'V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\dss'
         grid_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.grid')
         run_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.run')
         hms_fn = os.path.join(os.getcwd(),f'HMSFileMaker_output/{basin}/Amite_Final_HMS_Model.hms')

@@ -2,12 +2,14 @@ import xarray as xr
 import glob, os, tqdm
 import pandas as pd
 
-in_dir = r"V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\download"
-out_dir = r"V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\time_fixed_nc"
+# in_dir = r"V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\download"
+# out_dir = r"V:\projects\p00542_cpra_2020_lwi_t10\00_collection\data\rainfall\time_fixed_nc"
+in_dir = '/twi/delta/projects/p00542_cpra_2020_lwi_t10/00_collection/data/rainfall/download'
+out_dir = "/twi/delta/projects/p00542_cpra_2020_lwi_t10/00_collection/data/rainfall/time_fixed_nc"
 
 df = pd.read_csv('cleanList.csv')
 
-for f in tqdm.tqdm(df['0'].iloc[70:]):
+for f in tqdm.tqdm(df['0']):
     print(f)
     stormId = f.split("_")[3]
     ensembleId = f.split("_")[4].split(".")[0]
